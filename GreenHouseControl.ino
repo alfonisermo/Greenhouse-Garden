@@ -4,8 +4,8 @@
 #define FAN2PIN 6
 
 dht11 DHT11;
-float threshold1 = 75.0; // Deg.Farenheight that fan1 is engaged
-float threshold2 = 80.0; // Deg.Farenheight that fan2 is engaged
+float threshold1 = 80.0; // Deg.Farenheight that fan1 is engaged
+float threshold2 = 85.0; // Deg.Farenheight that fan2 is engaged
 float temperatureC, temperatureF, humidity;
 int fan1, fan2;
 
@@ -43,10 +43,12 @@ void loop()
 
   if (temperatureF >= threshold1) {
     digitalWrite(FAN1PIN, HIGH);
-    Serial.println("Fan1->ON"); 
+    Serial.println("Fan1->ON");
+    delay(20000); // pause to let fan spin up and system to settle(Voltage)
     if (temperatureF >= threshold2) {
       digitalWrite(FAN2PIN, HIGH);
       Serial.println("Fan2->ON");
+      delay(20000); // pause to let fan spin up and system to settle(Voltage)
     } else {
       digitalWrite(FAN2PIN, LOW);
       Serial.println("Fan2->OFF");
